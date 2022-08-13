@@ -48,11 +48,14 @@
       <label for="solid">Solid</label>
     </div>
   </div>
-  <div :style="styleObj"></div>
+  <div :style="styleObj" class="container">
+    <div class="card" v-show="index === 'solid'"></div>
+  </div>
 </template>
 <script setup>
 import { ref, computed } from 'vue';
 import svgToMiniDataURI from 'mini-svg-data-uri';
+import url from '../assets/bg.png';
 const index = ref('solid');
 const type = ref('fractalNoise');
 const baseFrequency = ref(0.5);
@@ -69,7 +72,6 @@ const svg = computed(() => {
   `);
 });
 const styleObj = computed(() => {
-  console.log(index.value);
   switch (index.value) {
     case 'linearGradient':
       return {
@@ -78,8 +80,10 @@ const styleObj = computed(() => {
       };
     case 'solid':
       return {
-        background: `url("${svg.value}")`,
+        background: `url(${url}), url("${svg.value}")`,
         backgroundColor: '#0B2127',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
         height: '50vh',
       };
   }
@@ -94,5 +98,19 @@ const styleObj = computed(() => {
 .slider {
   display: flex;
   align-items: center;
+}
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card {
+  width: 80%;
+  height: 80%;
+  background-color: #ffffff10;
+  border: 0.8px solid #ffffff;
+  backdrop-filter: blur(2px);
+  border-radius: 2rem;
+  box-sizing: border-box;
 }
 </style>
