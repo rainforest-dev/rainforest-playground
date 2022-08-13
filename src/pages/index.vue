@@ -49,6 +49,7 @@
     </div>
   </div>
   <div :style="styleObj" class="container">
+    <img :src="star" alt="star" class="star" />
     <div class="card" v-show="index === 'solid'"></div>
   </div>
 </template>
@@ -56,6 +57,7 @@
 import { ref, computed } from 'vue';
 import svgToMiniDataURI from 'mini-svg-data-uri';
 import url from '../assets/bg.png';
+import star from '../assets/star.png';
 const index = ref('solid');
 const type = ref('fractalNoise');
 const baseFrequency = ref(0.5);
@@ -100,6 +102,7 @@ const styleObj = computed(() => {
   align-items: center;
 }
 .container {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -112,5 +115,10 @@ const styleObj = computed(() => {
   backdrop-filter: blur(2px);
   border-radius: 2rem;
   box-sizing: border-box;
+}
+.star {
+  position: absolute;
+  right: 0;
+  bottom: 0;
 }
 </style>
