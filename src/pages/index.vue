@@ -1,0 +1,98 @@
+<template>
+  <div class="control">
+    <label for="baseFrequency" class="slider">
+      Base Frequency
+      <input
+        id="baseFrequency"
+        name="baseFrequency"
+        type="range"
+        v-model="baseFrequency"
+        max="1"
+        min="0"
+        step="0.005"
+      />
+      {{ baseFrequency }}
+    </label>
+    <label for="numOctaves" class="slider">
+      Num Octaves
+      <input
+        id="numOctaves"
+        name="numOctaves"
+        type="range"
+        v-model="numOctaves"
+        max="5"
+        min="0"
+      />
+      {{ numOctaves }}
+    </label>
+    <div class="type">
+      <input
+        type="radio"
+        id="fractalNoise"
+        value="fractalNoise"
+        v-model="type"
+      />
+      <label for="fractalNoise">fractalNoise</label>
+      <input type="radio" id="turbulence" value="turbulence" v-model="type" />
+      <label for="turbulence">turbulence</label>
+    </div>
+    <div class="case">
+      <input
+        type="radio"
+        id="linearGradient"
+        value="linearGradient"
+        v-model="index"
+      />
+      <label for="linearGradient">Linear Gradient</label>
+      <input type="radio" id="solid" value="solid" v-model="index" />
+      <label for="solid">Solid</label>
+    </div>
+  </div>
+  <div :style="styleObj"></div>
+</template>
+<script setup>
+import { ref, computed } from 'vue';
+import svgToMiniDataURI from 'mini-svg-data-uri';
+const index = ref('solid');
+const type = ref('fractalNoise');
+const baseFrequency = ref(0.5);
+const numOctaves = ref(3);
+const svg = computed(() => {
+  return svgToMiniDataURI(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="500" height="500">
+      <filter id="noise" x="0" y="0">
+        <feTurbulence type="${type.value}" baseFrequency="${baseFrequency.value}" numOctaves="${numOctaves.value}" stitchTiles="stitch"/>
+        <feBlend mode="screen"/>
+      </filter>
+      <rect width="500" height="500" filter="url(#noise)" opacity="0.5"/>
+    </svg>
+  `);
+});
+const styleObj = computed(() => {
+  console.log(index.value);
+  switch (index.value) {
+    case 'linearGradient':
+      return {
+        background: `linear-gradient(to right, #0B2127, transparent), url("${svg.value}")`,
+        height: '100px',
+      };
+    case 'solid':
+      return {
+        background: `url("${svg.value}")`,
+        backgroundColor: '#0B2127',
+        height: '50vh',
+      };
+  }
+});
+</script>
+<style>
+.control {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.slider {
+  display: flex;
+  align-items: center;
+}
+</style>
