@@ -51,6 +51,12 @@
       "linter": "eslint",
       "unitTestRunner": "vitest",
       "e2eTestRunner": "playwright"
+    },
+    "@nx/next": {
+      "application": {
+        "style": "none",
+        "linter": "eslint"
+      }
     }
   }
 }

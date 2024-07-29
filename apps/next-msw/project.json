@@ -1,0 +1,9 @@
+{
+  "name": "next-msw",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/next-msw",
+  "projectType": "application",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project next-msw --web",
+  "targets": {}
+}

@@ -1,0 +1,9 @@
+{
+  "name": "next-msw-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/next-msw-e2e/src",
+  "tags": [],
+  "implicitDependencies": ["next-msw"],
+  "// targets": "to see all targets run: nx show project next-msw-e2e --web",
+  "targets": {}
+}
